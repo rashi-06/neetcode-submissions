@@ -11,28 +11,15 @@
 
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* res = new ListNode(0);
-        ListNode* temp = res;
+    bool hasCycle(ListNode* head) {
+      ListNode* slow = head;
+      ListNode* fast = head;
 
-        while(l1 && l2){
-            if(l1->val < l2->val){
-                temp->next = l1;
-                l1 = l1->next;
-            }else{
-                temp->next = l2;
-                l2 = l2->next;
-            }
-            temp = temp->next;
-        }
-
-        if(l1){
-            temp->next = l1;
-        }
-        else if(l2){
-            temp->next = l2;
-        }
-
-        return res->next;
+      while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow == fast)return true;
+      }
+      return false;
     }
 };
